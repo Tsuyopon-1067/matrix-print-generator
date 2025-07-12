@@ -2,8 +2,9 @@ use crate::problem::Problem;
 use chrono::Local;
 use std::io::Write;
 
-pub fn generate_typst_file(problems: &[Problem]) -> std::io::Result<String> {
-    let mut file_content = "".to_string();
+pub fn generate_typst_file(problems: &[Problem], title: &str) -> std::io::Result<String> {
+    let mut file_content = "= ".to_string();
+    file_content.push_str(&format!("{}\n\n", title));
     file_content.push_str("== 問題\n\n");
 
     file_content.push_str("#columns(2, gutter: 1cm)[\n");
