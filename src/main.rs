@@ -1,8 +1,9 @@
 use clap::Parser;
-use matrix_print_generator::problem_generator::{
-    Args, generate_problems, generate_problems_rutine,
+use matrix_print_generator::{
+    pdf_generator,
+    problem_generator::{Args, generate_problems, generate_problems_rutine},
+    typst_generator,
 };
-use matrix_print_generator::typst_generator;
 
 fn main() {
     let args = Args::parse();
@@ -22,7 +23,10 @@ fn main() {
 
     let result = typst_generator::generate_typst_file(&problems, &args.title, &args.output);
     match result {
-        Ok(filename) => println!("Typst file generated: {}", filename),
+        Ok(filename) => {
+            println!("Typst file generated: {}", filename);
+            pdf_generator::generate_pdf(&filename);
+        }
         Err(e) => eprintln!("Error generating Typst file: {}", e),
     };
 }
