@@ -2,7 +2,7 @@ use crate::problem::Problem;
 use chrono::Local;
 use std::io::Write;
 
-pub fn generate_typst_file(problems: &[Problem]) -> std::io::Result<()> {
+pub fn generate_typst_file(problems: &[Problem]) -> std::io::Result<String> {
     let mut file_content = "".to_string();
     file_content.push_str("== 問題\n\n");
 
@@ -28,5 +28,5 @@ pub fn generate_typst_file(problems: &[Problem]) -> std::io::Result<()> {
     file.write_all(file_content.as_bytes())?;
 
     println!("Generated {}", filename);
-    Ok(())
+    Ok(filename)
 }

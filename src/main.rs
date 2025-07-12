@@ -7,7 +7,9 @@ fn main() {
         problems.push(Problem::new_add(3, 3, 0, 10));
     }
 
-    if let Err(e) = typst_generator::generate_typst_file(&problems) {
-        eprintln!("Error generating file: {}", e);
-    }
+    let result = typst_generator::generate_typst_file(&problems);
+    match result {
+        Ok(filename) => println!("Typst file generated: {}", filename),
+        Err(e) => eprintln!("Error generating Typst file: {}", e),
+    };
 }
