@@ -11,20 +11,16 @@ pub fn generate_typst_file(
     file_content.push_str(&format!("{}\n\n", title));
     file_content.push_str("== 問題\n\n");
 
-    file_content.push_str("#columns(2, gutter: 1cm)[\n");
     for (i, p) in problems.iter().enumerate() {
         file_content.push_str(&format!("{}. {}\n\n", i + 1, p.to_typst()));
     }
-    file_content.push_str("]\n");
 
     file_content.push_str("\n\n#pagebreak()\n\n");
     file_content.push_str("\n\n== 解答\n\n");
 
-    file_content.push_str("#columns(2, gutter: 1cm)[\n");
     for (i, p) in problems.iter().enumerate() {
         file_content.push_str(&format!("{}. {}\n\n", i + 1, p.answer_to_typst()));
     }
-    file_content.push_str("]\n");
 
     let dt = Local::now();
     let filename = format!("{}_{}.typ", output_prefix, dt.format("%Y%m%d_%H%M%S"));
