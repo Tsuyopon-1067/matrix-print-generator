@@ -44,10 +44,19 @@ struct Args {
     /// Output file name (prefix)
     #[arg(short, long, default_value = "matrix_print")]
     output: String,
+
+    /// Special flag to exit without doing anything
+    #[arg(long, default_value_t = false)]
+    m23: bool,
 }
 
 fn main() {
     let args = Args::parse();
+
+    if args.m23 {
+        println!("m23 flag is set. Exiting.");
+        return;
+    }
 
     let mut problems = Vec::new();
 
