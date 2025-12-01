@@ -1,3 +1,5 @@
+use rand::rngs::StdRng;
+
 use crate::matrix::Matrix;
 
 // 計算の種類
@@ -18,9 +20,9 @@ pub struct Problem {
 
 impl Problem {
     // 新しい足し算問題を生成
-    pub fn new_add(rows: usize, cols: usize, min_val: i32, max_val: i32) -> Self {
-        let m1 = Matrix::new_random(rows, cols, min_val, max_val);
-        let m2 = Matrix::new_random(rows, cols, min_val, max_val);
+    pub fn new_add(rows: usize, cols: usize, min_val: i32, max_val: i32, rng: &mut StdRng) -> Self {
+        let m1 = Matrix::new_random(rows, cols, min_val, max_val, rng);
+        let m2 = Matrix::new_random(rows, cols, min_val, max_val, rng);
         let mut answer_data = vec![vec![0; cols]; rows];
         for i in 0..rows {
             for j in 0..cols {
@@ -36,9 +38,9 @@ impl Problem {
     }
 
     // 新しい引き算問題を生成
-    pub fn new_sub(rows: usize, cols: usize, min_val: i32, max_val: i32) -> Self {
-        let m1 = Matrix::new_random(rows, cols, min_val, max_val);
-        let m2 = Matrix::new_random(rows, cols, min_val, max_val);
+    pub fn new_sub(rows: usize, cols: usize, min_val: i32, max_val: i32, rng: &mut StdRng) -> Self {
+        let m1 = Matrix::new_random(rows, cols, min_val, max_val, rng);
+        let m2 = Matrix::new_random(rows, cols, min_val, max_val, rng);
         let mut answer_data = vec![vec![0; cols]; rows];
         for i in 0..rows {
             for j in 0..cols {
@@ -60,9 +62,10 @@ impl Problem {
         cols: usize,
         min_val: i32,
         max_val: i32,
+        rng: &mut StdRng,
     ) -> Self {
-        let m1 = Matrix::new_random(rows, common_dim, min_val, max_val);
-        let m2 = Matrix::new_random(common_dim, cols, min_val, max_val);
+        let m1 = Matrix::new_random(rows, common_dim, min_val, max_val, rng);
+        let m2 = Matrix::new_random(common_dim, cols, min_val, max_val, rng);
         let mut answer_data = vec![vec![0; cols]; rows];
         for i in 0..rows {
             for j in 0..cols {

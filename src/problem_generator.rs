@@ -1,5 +1,6 @@
 use crate::problem::Problem;
 use clap::Parser;
+use rand::rngs::StdRng;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -51,19 +52,27 @@ pub struct Args {
     /// special flag to exit without doing anything
     #[arg(long, default_value_t = false)]
     pub pm: bool,
+
+    /// Seed specification
+    #[arg(long)]
+    pub seed: Option<u64>,
 }
 
-pub fn generate_problems(args: &Args) -> Vec<Problem> {
+pub fn generate_problems(args: &Args, rng: &mut StdRng) -> Vec<Problem> {
     let mut problems = Vec::new();
 
     // Generate addition problems
     for _ in 0..args.add {
-        problems.push(Problem::new_add(args.rows, args.cols, args.min, args.max));
+        problems.push(Problem::new_add(
+            args.rows, args.cols, args.min, args.max, rng,
+        ));
     }
 
     // Generate subtraction problems
     for _ in 0..args.sub {
-        problems.push(Problem::new_sub(args.rows, args.cols, args.min, args.max));
+        problems.push(Problem::new_sub(
+            args.rows, args.cols, args.min, args.max, rng,
+        ));
     }
 
     // Generate multiplication problems
@@ -74,29 +83,30 @@ pub fn generate_problems(args: &Args) -> Vec<Problem> {
             args.cols,
             args.min,
             args.max,
+            rng,
         ));
     }
     problems
 }
 
-pub fn generate_problems_rutine(args: &Args) -> Vec<Problem> {
+pub fn generate_problems_rutine(args: &Args, rng: &mut StdRng) -> Vec<Problem> {
     let mut problems = Vec::new();
     let add_min = if args.pm { -99999 } else { 0 };
     let mul_min = if args.pm { -99 } else { 0 };
 
     // Generate addition problems
     for _ in 0..3 {
-        problems.push(Problem::new_add(3, 3, add_min, 99999));
+        problems.push(Problem::new_add(3, 3, add_min, 99999, rng));
     }
     // Generate multiplication problems
     for _ in 0..3 {
-        problems.push(Problem::new_mul(2, 2, 2, mul_min, 99));
+        problems.push(Problem::new_mul(2, 2, 2, mul_min, 99, rng));
     }
     for _ in 0..2 {
-        problems.push(Problem::new_mul(3, 3, 3, mul_min, 99));
+        problems.push(Problem::new_mul(3, 3, 3, mul_min, 99, rng));
     }
     for _ in 0..2 {
-        problems.push(Problem::new_mul(4, 4, 4, mul_min, 99));
+        problems.push(Problem::new_mul(4, 4, 4, mul_min, 99, rng));
     }
     problems
 }
