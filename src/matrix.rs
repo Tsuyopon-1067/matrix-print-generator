@@ -16,11 +16,11 @@ impl Matrix {
 
     // 乱数で新しい行列を生成
     pub fn new_random(rows: usize, cols: usize, min_val: i32, max_val: i32) -> Self {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         let mut data = Vec::with_capacity(rows);
         for _ in 0..rows {
             let row = (0..cols)
-                .map(|_| rng.gen_range(min_val..=max_val))
+                .map(|_| rng.random_range(min_val..=max_val))
                 .collect();
             data.push(row);
         }
