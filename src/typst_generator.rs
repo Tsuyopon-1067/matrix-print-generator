@@ -6,9 +6,15 @@ pub fn generate_typst_file(
     problems: &[Problem],
     title: &str,
     output_prefix: &str,
+    seed: u64,
 ) -> std::io::Result<String> {
-    let mut file_content = "= ".to_string();
-    file_content.push_str(&format!("{}\n\n", title));
+    let mut file_content = String::new();
+    file_content.push_str(&format!(
+        "#set page(header: align(right, text(size: 10pt, [seed={}])))\n\n",
+        seed,
+    ));
+
+    file_content.push_str(&format!("= {}\n\n", title));
     file_content.push_str("== 問題\n\n");
 
     for (i, p) in problems.iter().enumerate() {
