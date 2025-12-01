@@ -9,8 +9,17 @@ pub fn generate_typst_file(
     seed: u64,
 ) -> std::io::Result<String> {
     let mut file_content = String::new();
+
     file_content.push_str(&format!(
-        "#set page(header: align(right, text(size: 10pt, [seed={}])))\n\n",
+        r#"
+        #set text(font: ("Hiragino Kaku Gothic Pro", "MS Gothic"), size: 12pt)
+        #set enum(spacing: 2.0em)
+        #show heading.where(level: 2): it => {{
+            set block(above: 1em, below: 1.5em)
+            it
+        }}
+        #set page(header: align(right, text(size: 10pt, [seed={}])))
+        "#,
         seed,
     ));
 
@@ -22,7 +31,8 @@ pub fn generate_typst_file(
     }
 
     file_content.push_str("\n\n#pagebreak()\n\n");
-    file_content.push_str("\n\n== 解答\n\n");
+    file_content.push_str(&format!("= {}\n\n", title));
+    file_content.push_str("== 解答\n\n");
 
     for (i, p) in problems.iter().enumerate() {
         file_content.push_str(&format!("{}. {}\n\n", i + 1, p.answer_to_typst()));
