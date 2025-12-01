@@ -51,8 +51,9 @@ cargo install --path .
 |        | `--common_dim` | 掛け算時の内側の次元数                   | `3`               |
 |        | `--min`        | 行列の要素の最小値                       | `0`               |
 |        | `--max`        | 行列の要素の最大値                       | `10`              |
-| `-t`   | `--title`      | 生成されるPDFのタイトル                  | "Matrix Practice" |
+| `-t`   | `--title`      | 生成されるPDFのタイトル名                  | "Matrix Practice" |
 | `-o`   | `--output`     | 出力ファイル名（`.typ`拡張子を除く）     | "matrix_print"    |
+|        | `--seed`       | 問題生成のシード値（省略した場合はランダム値）   |     |
 
 **例:**
 
